@@ -4,7 +4,6 @@ use spl_token_2022::solana_zk_token_sdk::zk_token_elgamal::{ops::{add, subtract}
 use std::io::{self, Write};
 use std::ops::Deref;
 use bytemuck::{Zeroable, Pod};
-use borsh::{BorshDeserialize, BorshSerialize};
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 
 #[program]
@@ -97,7 +96,7 @@ unsafe impl Pod for ElGamalKey {}
 impl AnchorSerialize for ElGamalKey {
     fn serialize<W: Write>(&self, writer: &mut W) -> io::Result<()> {
         let buf = bytemuck::bytes_of(&self.0);
-        writer.write_all(buf);
+        writer.write_all(buf)?;
         Ok(())
     }
 }
@@ -113,7 +112,7 @@ impl AnchorDeserialize for ElGamalKey {
 impl AnchorSerialize for ElCipher {
     fn serialize<W: Write>(&self, writer: &mut W) -> io::Result<()> {
         let buf = bytemuck::bytes_of(&self.0);
-        writer.write_all(buf);
+        writer.write_all(buf)?;
         Ok(())
     }
 }
