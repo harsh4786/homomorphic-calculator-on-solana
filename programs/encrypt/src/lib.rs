@@ -91,8 +91,7 @@ impl From<ElGamalCiphertext> for ElCipher{
     }
 }  
 
-unsafe impl Zeroable for ElGamalKey {}
-unsafe impl Pod for ElGamalKey {}
+
 impl AnchorSerialize for ElGamalKey {
     fn serialize<W: Write>(&self, writer: &mut W) -> io::Result<()> {
         let buf = bytemuck::bytes_of(&self.0);
